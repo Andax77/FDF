@@ -13,7 +13,8 @@
 NAME = fdf
 SRC_PATH = src
 SRC_NAME = main.c\
-		   ft_keyboard.c
+		   ft_keyboard.c\
+			 image.c
 OBJ_PATH = obj
 LDFLAGS = -L libft/
 CFLAGS = -lft -g -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit

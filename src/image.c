@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anhuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/18 11:20:30 by anhuang           #+#    #+#             */
-/*   Updated: 2017/12/19 11:05:47 by anhuang          ###   ########.fr       */
+/*   Created: 2017/12/19 17:08:48 by anhuang           #+#    #+#             */
+/*   Updated: 2017/12/19 17:08:53 by anhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int main(int argc, const char *argv[])
+void  fill_image(int *image, int color)
 {
-	printf("%d%s",argc, argv[1]);
-	t_e		*e;
+  int i;
 
-	e->mlx = mlx_init();
-	e->win = mlx_new_window(e->mlx, WIN_WIDTH, WIN_HEIGHT,"mlx 42");
-	e->img = mlx_new_image(e->mlx, WIN_WIDTH, WIN_HEIGHT);
-  e->img_string = (int*)mlx_get_data_addr(e->image, e->bpp, e->size_l, e->end);
-	mlx_key_hook(e->win, ft_keyboard, e);
-	mlx_loop(e->mlx);
-	return 0;
+  i = 0;
+  while (i < WIN_WIDTH * WIN_HEIGHT)
+  {
+    image[i] = color;
+    ++i;
+  }
 }
