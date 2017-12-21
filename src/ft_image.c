@@ -19,17 +19,28 @@ void ft_fill_image(int *image, int color)//ft_line
     int     i;
     int     wtf;
 
-    line.x1 = 30;
-    line.x2 = 180;
-    line.y1 = 20;
-    line.y2 = 110;
+    line.x2 = 150;
+    line.x1 = 150;
+    line.y2 = 750;
+    line.y1 = 250;
+
+    line.x1 > line.x2 ? ft_swap(&line.x1, &line.x2),
+     ft_swap(&line.y1, &line.y2) : 1;
     x = line.x1;
     line.dx = line.x2 - line.x1;
-    line.dy = line.y2 - line.y2;
+    line.dy = line.y2 - line.y1;
+    line.dx == 0 ? line.dx = 1 : 1;
     while (x <= line.x2)
     {
-      wtf = ((line.y2 - line.y1) * (x - line.x1) / (line.x2 - line.x1));
+      wtf = (line.dy * (x - line.x1) / line.dx);
       i = (WIN_HEIGHT - line.y1) * WIN_WIDTH + x - wtf * WIN_WIDTH;
+      image[i] = color;
+      x++;
+    }
+    while (x <= line.x2)
+    {
+      wtf = (line.dy * (x - line.x1) / line.dx);
+      i = (WIN_HEIGHT - line.y1) * WIN_WIDTH + x + wtf * WIN_WIDTH;
       image[i] = color;
       x++;
     }
