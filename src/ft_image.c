@@ -18,29 +18,44 @@ void ft_fill_image(int *image, int color)//ft_line
     int     x;
     int     i;
     int     wtf;
+    int     wtf2;
+    int     go;
 
-    line.x2 = 150;
-    line.x1 = 150;
-    line.y2 = 750;
+    go = 1;
+    line.x2 = 750;
+    line.x1 = 850;
+    line.y2 = 850;
     line.y1 = 250;
-
     line.x1 > line.x2 ? ft_swap(&line.x1, &line.x2),
      ft_swap(&line.y1, &line.y2) : 1;
     x = line.x1;
     line.dx = line.x2 - line.x1;
     line.dy = line.y2 - line.y1;
+    line.dy < 0 ? line.dy = -line.dy : line.dy;
+    printf("%d\n",line.dx);
+    line.dy > line.dx ? go = 0 : 1;
     line.dx == 0 ? line.dx = 1 : 1;
-    while (x <= line.x2)
+    while (x <= line.x2 && go == 0)
     {
+      wtf2 = 0;
       wtf = (line.dy * (x - line.x1) / line.dx);
-      i = (WIN_HEIGHT - line.y1) * WIN_WIDTH + x - wtf * WIN_WIDTH;
-      image[i] = color;
+      printf("%d\n",wtf);
+      printf("%d\n", line.dy * (x + 1 - line.x1 / line.dx) + wtf2);
+      while (wtf != (line.dy * (x + 1 - line.x1) / line.dx) + wtf2)
+      {
+        i = (WIN_HEIGHT - line.y1 - wtf2) * WIN_WIDTH + x - wtf * WIN_WIDTH;
+        printf("%d\n", i);
+        if (i >= 0 && i < WIN_WIDTH * WIN_HEIGHT)
+        image[i] = color;
+        wtf2++;
+      }
       x++;
     }
-    while (x <= line.x2)
+    while (x <= line.x2 && go == 1)
     {
+      printf("CAPASSE\n");
       wtf = (line.dy * (x - line.x1) / line.dx);
-      i = (WIN_HEIGHT - line.y1) * WIN_WIDTH + x + wtf * WIN_WIDTH;
+      i = (WIN_HEIGHT - line.y1) * WIN_WIDTH + x - wtf * WIN_WIDTH;
       image[i] = color;
       x++;
     }
