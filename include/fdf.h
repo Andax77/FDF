@@ -26,7 +26,7 @@ typedef struct s_e
 	void	*win;
 	void	*mlx;
 	void	*img;
-	int   *img_string;
+	int   *img_str;
 	int   bpp;
 	int   size_l;
 	int   end;
@@ -38,6 +38,16 @@ typedef struct s_point
 	double 	y;
 }				t_point;
 
+typedef struct s_line
+{
+	int 		x1;
+	int 		x2;
+	int 		y1;
+	int 		y2;
+	int 		dx;
+	int 		dy;
+}				t_line;
+
 typedef struct s_color
 {
 	int 	r;
@@ -46,7 +56,7 @@ typedef struct s_color
 	int 	a;
 }				t_color;
 
-int ft_keyboard(int keycode, t_e *e);
-void  fill_image(int *image, int color);
+int 	ft_keyboard(int keycode, t_e *e);
+void  ft_fill_image(int *image, int color);
 
 #endif
