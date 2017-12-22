@@ -19,21 +19,25 @@ void ft_fill_image(int *image, int color)//ft_line
     int     i;
     int     wtf;
     int     wtf2;
+    int     wtf3;
     int     go;
 
-    go = 1;
-    line.x2 = 750;
-    line.x1 = 850;
-    line.y2 = 850;
-    line.y1 = 250;
+    go = 0;
+    wtf3 = 1;
+    line.x2 = 350;
+    line.x1 = 350;
+    line.y2 = 250;
+    line.y1 = 450;
+
     line.x1 > line.x2 ? ft_swap(&line.x1, &line.x2),
      ft_swap(&line.y1, &line.y2) : 1;
     x = line.x1;
     line.dx = line.x2 - line.x1;
     line.dy = line.y2 - line.y1;
-    line.dy < 0 ? line.dy = -line.dy : line.dy;
+    line.dy > 0 ? wtf3 = -1 : 1;
+    printf("%d\n",line.dy);
     printf("%d\n",line.dx);
-    line.dy > line.dx ? go = 0 : 1;
+    abs(line.dy) < line.dx ? go = 1 : 1;
     line.dx == 0 ? line.dx = 1 : 1;
     while (x <= line.x2 && go == 0)
     {
@@ -44,10 +48,10 @@ void ft_fill_image(int *image, int color)//ft_line
       while (wtf != (line.dy * (x + 1 - line.x1) / line.dx) + wtf2)
       {
         i = (WIN_HEIGHT - line.y1 - wtf2) * WIN_WIDTH + x - wtf * WIN_WIDTH;
-        printf("%d\n", i);
+        printf("COUCOU\n");
         if (i >= 0 && i < WIN_WIDTH * WIN_HEIGHT)
         image[i] = color;
-        wtf2++;
+        wtf2 = wtf2 + wtf3;
       }
       x++;
     }
@@ -90,17 +94,3 @@ void ft_fill_image(int *image, int color)//ft_line
   }
 }
 */
-/*void  fill_image(int *image, int color)
-{
-  int i;
-
-  i = WIN_WIDTH * MARGIN + MARGIN;
-  while (i < WIN_WIDTH * WIN_HEIGHT - MARGIN - WIN_HEIGHT * MARGIN)
-  {
-    image[i] = color;
-    ++i;
-    if ((i + MARGIN) % WIN_WIDTH == 0)
-      i += MARGIN * 2;
-
-  }
-}*/

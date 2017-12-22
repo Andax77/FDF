@@ -16,6 +16,7 @@ int		ft_keyboard(int keycode, t_e *e)
 {
 	int color;
 
+	color = 0xFFFFFF;
 	if (keycode == 53)
 	{
 		mlx_destroy_window(e->mlx, e->win);
@@ -31,7 +32,7 @@ int		ft_keyboard(int keycode, t_e *e)
 	if (keycode == 123)//LEFT
 	if (keycode == 125)//DOWN
 	if (keycode == 124)//RIGHT
-	*/fill_image(e->image_string, color);
-	mlx_put_image_to_window(e->mlx, e->win, e->image, 0, 0);
+	*/ft_fill_image(e->img_str, color);
+	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 	return (0);
 }
