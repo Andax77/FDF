@@ -11,6 +11,26 @@
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+}
+void ft_unexpected(int *image, int color, t_line *line)
+{
+  int i;
+  int y;
+  int go;
+
+  go = line->y1;
+  y = -1;
+  line->y1 > line->y2 ? go = line->y2 : 0;
+  line->y1 > line->y2 ? y = 1 : 0;
+  i = (WIN_HEIGHT - go) * WIN_WIDTH + line->x1;
+  image[i] = color;
+  while (line->y1 != line->y2)
+  {
+    i -= WIN_WIDTH;
+    image[i] = color;
+    line->y2 += y;
+  }
+}
 
 void ft_fill_image(int *image, int color)//ft_line
 {
@@ -24,10 +44,12 @@ void ft_fill_image(int *image, int color)//ft_line
 
     go = 0;
     wtf3 = 1;
-    line.x2 = 350;
-    line.x1 = 350;
-    line.y2 = 250;
-    line.y1 = 450;
+
+
+    line.x2 = x2;
+    line.x1 = x1;
+    line.y2 = y2;
+    line.y1 = y1;
 
     line.x1 > line.x2 ? ft_swap(&line.x1, &line.x2),
      ft_swap(&line.y1, &line.y2) : 1;
@@ -35,29 +57,23 @@ void ft_fill_image(int *image, int color)//ft_line
     line.dx = line.x2 - line.x1;
     line.dy = line.y2 - line.y1;
     line.dy > 0 ? wtf3 = -1 : 1;
-    printf("%d\n",line.dy);
-    printf("%d\n",line.dx);
     abs(line.dy) < line.dx ? go = 1 : 1;
-    line.dx == 0 ? line.dx = 1 : 1;
+    line.dx == 0 ? ft_unexpected(image, color, &line), go = 3 : 1;
     while (x <= line.x2 && go == 0)
     {
       wtf2 = 0;
       wtf = (line.dy * (x - line.x1) / line.dx);
-      printf("%d\n",wtf);
-      printf("%d\n", line.dy * (x + 1 - line.x1 / line.dx) + wtf2);
       while (wtf != (line.dy * (x + 1 - line.x1) / line.dx) + wtf2)
       {
         i = (WIN_HEIGHT - line.y1 - wtf2) * WIN_WIDTH + x - wtf * WIN_WIDTH;
-        printf("COUCOU\n");
         if (i >= 0 && i < WIN_WIDTH * WIN_HEIGHT)
         image[i] = color;
-        wtf2 = wtf2 + wtf3;
+        wtf2 += wtf3;
       }
       x++;
     }
     while (x <= line.x2 && go == 1)
     {
-      printf("CAPASSE\n");
       wtf = (line.dy * (x - line.x1) / line.dx);
       i = (WIN_HEIGHT - line.y1) * WIN_WIDTH + x - wtf * WIN_WIDTH;
       image[i] = color;
