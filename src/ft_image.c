@@ -6,79 +6,86 @@
 /*   By: anhuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 17:08:48 by anhuang           #+#    #+#             */
-/*   Updated: 2017/12/19 17:08:53 by anhuang          ###   ########.fr       */
+/*   Updated: 2018/01/04 15:14:40 by anhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-}
-void ft_unexpected(int *image, int color, t_line *line)
+
+void	ft_unexpected(int *image, int color, t_line *line, int *go2)
 {
-  int i;
-  int y;
-  int go;
+	int		i;
+	int		y;
+	int		go;
 
-  go = line->y1;
-  y = -1;
-  line->y1 > line->y2 ? go = line->y2 : 0;
-  line->y1 > line->y2 ? y = 1 : 0;
-  i = (WIN_HEIGHT - go) * WIN_WIDTH + line->x1;
-  image[i] = color;
-  while (line->y1 != line->y2)
-  {
-    i -= WIN_WIDTH;
-    image[i] = color;
-    line->y2 += y;
-  }
+	*go2 = 3;
+	go = line->y1;
+	y = -1;
+	line->y1 > line->y2 ? go = line->y2 : 0;
+	line->y1 > line->y2 ? y = 1 : 0;
+	i = (WIN_HEIGHT - go) * WIN_WIDTH + line->x1;
+	image[i] = color;
+	while (line->y1 != line->y2)
+	{
+		i -= WIN_WIDTH;
+		image[i] = color;
+		line->y2 += y;
+	}
 }
 
-void ft_fill_image(int *image, int color)//ft_line
+void	ft_while(t_line *ln, t_wtf *wtf, int *image, int color)
 {
-    t_line  line;
-    int     x;
-    int     i;
-    int     wtf;
-    int     wtf2;
-    int     wtf3;
-    int     go;
+	int		i;
+	int		x;
 
-    go = 0;
-    wtf3 = 1;
+	x = ln->x1;
+	while (x <= ln->x2 && wtf->go == 0)
+	{
+		wtf->wtf2 = 0;
+		wtf->wtf = (ln->dy * (x - ln->x1) / ln->dx);
+		while (wtf->wtf != (ln->dy * (x + 1 - ln->x1) / ln->dx) + wtf->wtf2)
+		{
+			i = (WIN_HEIGHT - ln->y1 - wtf->wtf2)
+				* WIN_WIDTH + x - wtf->wtf * WIN_WIDTH;
+			if (i >= 0 && i < WIN_WIDTH * WIN_HEIGHT)
+				image[i] = color;
+			wtf->wtf2 += wtf->wtf3;
+		}
+		x++;
+	}
+	while (x <= ln->x2 && wtf->go == 1)
+	{
+		wtf->wtf = (ln->dy * (x - ln->x1) / ln->dx);
+		i = (WIN_HEIGHT - ln->y1) * WIN_WIDTH + x - wtf->wtf * WIN_WIDTH;
+		image[i] = color;
+		x++;
+	}
+}
 
+void	ft_double_swap(t_line *line)
+{
+	ft_swap(&line->x1, &line->x2);
+	ft_swap(&line->y1, &line->y2);
+}
 
-    line.x2 = x2;
-    line.x1 = x1;
-    line.y2 = y2;
-    line.y1 = y1;
+void	ft_fill_image(int *image, int color)
+{
+	t_line	line;
+	t_wtf	wtf;
 
-    line.x1 > line.x2 ? ft_swap(&line.x1, &line.x2),
-     ft_swap(&line.y1, &line.y2) : 1;
-    x = line.x1;
-    line.dx = line.x2 - line.x1;
-    line.dy = line.y2 - line.y1;
-    line.dy > 0 ? wtf3 = -1 : 1;
-    abs(line.dy) < line.dx ? go = 1 : 1;
-    line.dx == 0 ? ft_unexpected(image, color, &line), go = 3 : 1;
-    while (x <= line.x2 && go == 0)
-    {
-      wtf2 = 0;
-      wtf = (line.dy * (x - line.x1) / line.dx);
-      while (wtf != (line.dy * (x + 1 - line.x1) / line.dx) + wtf2)
-      {
-        i = (WIN_HEIGHT - line.y1 - wtf2) * WIN_WIDTH + x - wtf * WIN_WIDTH;
-        if (i >= 0 && i < WIN_WIDTH * WIN_HEIGHT)
-        image[i] = color;
-        wtf2 += wtf3;
-      }
-      x++;
-    }
-    while (x <= line.x2 && go == 1)
-    {
-      wtf = (line.dy * (x - line.x1) / line.dx);
-      i = (WIN_HEIGHT - line.y1) * WIN_WIDTH + x - wtf * WIN_WIDTH;
-      image[i] = color;
-      x++;
-    }
+	wtf.wtf3 = 1;
+	wtf.go = 0;
+	line.x2 = 500;
+	line.x1 = 168;
+	line.y2 = 750;
+	line.y1 = 1680;
+	line.x1 > line.x2 ? ft_double_swap(&line) : 1;
+	line.dx = line.x2 - line.x1;
+	line.dy = line.y2 - line.y1;
+	line.dy > 0 ? wtf.wtf3 = -1 : 1;
+	abs(line.dy) < line.dx ? wtf.go = 1 : 1;
+	line.dx == 0 ? ft_unexpected(image, color, &line, &wtf.go) : 1;
+	ft_while(&line, &wtf, image, color);
 }
 
 /*void ft_fill_image(int *image, int color)
