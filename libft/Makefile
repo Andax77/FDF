@@ -6,7 +6,7 @@
 #    By: anhuang <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/14 11:04:15 by anhuang           #+#    #+#              #
-#    Updated: 2017/11/21 16:49:34 by anhuang          ###   ########.fr        #
+#    Updated: 2018/01/05 17:00:22 by anhuang          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,9 +70,10 @@ SRC = ./ft_atoi.c \
 	  ./ft_lstiter.c \
 	  ./ft_lstmap.c \
 	  ./ft_lstnew.c \
-	  ./count_let.c \
-	  ./count_words.c \
-	  ./ft_swap.c
+	  ./ft_count_let.c \
+	  ./ft_count_words.c \
+	  ./ft_swap.c \
+	  ./get_next_line.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_words.c                                      :+:      :+:    :+:   */
+/*   count_let.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anhuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 16:55:10 by anhuang           #+#    #+#             */
-/*   Updated: 2017/11/21 16:55:17 by anhuang          ###   ########.fr       */
+/*   Created: 2017/11/21 13:07:10 by anhuang           #+#    #+#             */
+/*   Updated: 2018/01/05 16:59:42 by anhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			count_words(char *s, char c)
+int			ft_count_let(char *str, int i, char c)
 {
-	int		counter;
-	int		i;
+	int		letter;
 
-	counter = 1;
-	i = 0;
-	while (s[i] != '\0')
+	letter = 1;
+	while (str[i] != c && str[i] != '\0')
 	{
-		while (s[i] == c || s[i] == '\0')
-		{
-			if (s[i] == '\0')
-				return (counter);
-			i++;
-		}
-		counter++;
-		while (!(s[i] == c) && s[i] != '\0')
-			i++;
+		letter++;
+		i++;
 	}
-	return (counter);
+	return (letter);
 }

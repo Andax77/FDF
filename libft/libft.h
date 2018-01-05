@@ -6,13 +6,14 @@
 /*   By: anhuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:15:30 by anhuang           #+#    #+#             */
-/*   Updated: 2017/11/21 16:49:18 by anhuang          ###   ########.fr       */
+/*   Updated: 2018/01/05 16:57:42 by anhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "get_next_line.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <strings.h>
@@ -84,8 +85,8 @@ void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **alst, t_list *nv);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-int				count_let(char *str, int i, char c);
-int				count_words(char *s, char c);
+int				ft_count_let(char *str, int i, char c);
+int				ft_count_words(char *s, char c);
 void			ft_swap(int *a, int *b);
 
 #endif
