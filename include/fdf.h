@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <fcntl.h>
 
 typedef struct s_e
 {
@@ -34,9 +35,18 @@ typedef struct s_e
 
 typedef struct s_point
 {
-	double 	x;
-	double 	y;
+	int 					x;
+	int 					y;
+	int 					z;
 }				t_point;
+
+typedef struct s_wtf
+{
+		int wtf;
+		int wtf2;
+		int wtf3;
+		int go;
+}				t_wtf;
 
 typedef struct s_line
 {
@@ -56,7 +66,13 @@ typedef struct s_color
 	int 	a;
 }				t_color;
 
-int 	ft_keyboard(int keycode, t_e *e);
-void  ft_fill_image(int *image, int color);
+int 		ft_keyboard(int keycode, t_e *e);
+void	ft_line(int *image, int color, t_point pt1, t_point pt2);
+unsigned int 		ft_color(int keycode, int R, int G, int B);
+void 		ft_while(t_line *line, t_wtf *wtf, int *image, int color);
+int			**ft_read(const char *file, int fd);
+t_point ft_len_file(int fd);
+int			ft_splitlen(char **tab);
+void    ft_trace(int **old, int *img, t_point size);
 
 #endif
