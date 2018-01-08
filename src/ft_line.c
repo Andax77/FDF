@@ -68,17 +68,17 @@ void	ft_double_swap(t_line *line)
 	ft_swap(&line->y1, &line->y2);
 }
 
-void	ft_line(int *image, int color)
+void	ft_line(int *image, int color, t_point pt1, t_point pt2)
 {
 	t_line	line;
 	t_wtf	wtf;
 
 	wtf.wtf3 = 1;
 	wtf.go = 0;
-	line.x2 = 500;
-	line.x1 = 168;
-	line.y2 = 750;
-	line.y1 = 1680;
+	line.x2 = pt2.x * (WIN_WIDTH / 10);
+	line.x1 = pt1.x * (WIN_WIDTH / 10);
+	line.y2 = pt2.y * (WIN_HEIGHT / 10);
+	line.y1 = pt1.y * (WIN_HEIGHT / 10);
 	line.x1 > line.x2 ? ft_double_swap(&line) : 1;
 	line.dx = line.x2 - line.x1;
 	line.dy = line.y2 - line.y1;

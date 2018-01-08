@@ -32,7 +32,7 @@ int		ft_keycode(int R, int G, int B)
 	return (R * pow(16, 4) + G * pow(16, 2) + B);
 }
 
-int 	ft_color(int keycode, int R, int G, int B)
+unsigned int 	ft_color(int keycode, int R, int G, int B)
 {
 	if (R == 0 && G == 0 && B == 0)
 		R = 255;
@@ -61,7 +61,7 @@ int 	ft_color(int keycode, int R, int G, int B)
 
 int		ft_keyboard(int keycode, t_e *e)
 {
-	static int color;
+	static unsigned int color;
 
 	printf("%d\n", keycode);
 	if (keycode == 53)
@@ -83,7 +83,7 @@ int		ft_keyboard(int keycode, t_e *e)
 	if (keycode == 125)//DOWN
 	if (keycode == 124)//RIGHT
 	*/
-	ft_line(e->img_str, color);
+//	ft_line(e->img_str, color);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 	return (0);
 }
