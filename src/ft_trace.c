@@ -12,61 +12,76 @@
 
 #include "../include/fdf.h"
 
-void    ft_trace_line(t_point **tab, int height, int width, int* img)
+void    ft_trace_line(t_point **tab, int height, int width, t_e *e)
 {
   int   x;
   int   y;
 
   y = 0;
-  while (y - 1 != height)
+  while (y < height)
   {
     x = 0;
-    while (x - 1 != width)
+    while (x < width)
     {
-      printf("HEHE\n");
-      if (y <= height && y >= 0 && x >= 0 && x <= width &&
-              y + 1 <= height && y + 1 >= 0 && x >= 0 && x <= width)
-              ft_line(img, 0xFFFFFF, tab[x][y], tab[y + 1][x]);
-      if (y <= height && y >= 0 && x >= 0 && x <= width &&
-              y <= height && y >= 0 && x + 1 >= 0 && x + 1 <= width)
-              ft_line(img, 0xFFFFFF, tab[x][y], tab[y][x + 1]);
+      if (x + 1 < width)
+      {
+          ft_line(e->img_str, 0xFFFFFF, tab[y][x], tab[y][x + 1]);
+      }
+      if (y + 1 < height)
+      {
+          ft_line(e->img_str, 0xFFFFFF, tab[y][x], tab[y + 1][x]);
+      }
       x++;
     }
     y++;
   }
+  mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
 
-void    ft_trace(int **old, int *img, t_point size)
+void    ft_trace(int **old, t_e *e, t_point size)
 {
   t_point pt;
   t_point **new;
-  int     width;
-  int     height;
 
-  height = size.x - 1;
-  width = size.y - 1;
-  printf("NOMBre :%d\n", width);
-  if (!(new = (t_point**)malloc(sizeof(new) * height)))
-    exit(0);
-  pt.y = height;
-  printf("HEHE1111\n");
-  while (pt.y != 0)
+  for (int y = 0; y < size.y; ++y)
   {
-    if (!(new[height - pt.y] = (t_point*)malloc(sizeof(t_point*) * width)))
+      for (int x = 0; x < size.x; ++x)
+      {
+        printf("%d ", old[y][x]);
+      }
+      printf("\n");
+  }
+
+  if (!(new = (t_point**)malloc(sizeof(t_point*) * size.y)))
+    exit(0);
+  pt.y = 0;
+  while (pt.y < size.y)
+  {
+    if (!(new[pt.y] = (t_point*)malloc(sizeof(t_point) * size.x)))
       exit(0);
     pt.x = 0;
-    printf("123456\n");
-    while (pt.x != width)
+    while (pt.x < size.x)
     {
-      size.x = pt.x;
-      size.y = pt.y;
-      size.z = old[pt.y][pt.x];
-      new[height - pt.y][pt.x] = size;
-      pt.x++;
+      new[pt.y][pt.x].x = pt.x * 10 * 2 + 100;
+      new[pt.y][pt.x].y = pt.y * 10 * 2 + 100;
+      new[pt.y][pt.x].y += old[size.y - pt.y - 1][pt.x] * 2;
+      ++pt.x;
     }
-    pt.y--;
-    printf("PAS MAL\n");
+    ++pt.y;
   }
-  printf("CA PASSE !\n");
-  ft_trace_line(new, height, width, img);
+  printf("\n");
+
+  printf("***********************************************\n");
+
+  for (int y = 0; y < size.y; ++y)
+  {
+    for (int x = 0; x < size.x; ++x)
+    {
+      printf("(%d, %d) ", new[y][x].x, new[y][x].y);
+    }
+    printf("\n");
+  }
+
+  ft_trace_line(new, size.y, size.x, e);
+  free(new);
 }

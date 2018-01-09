@@ -24,13 +24,16 @@ void	ft_unexpected(int *image, int color, t_line *line, int *go2)
 	line->y1 > line->y2 ? go = line->y2 : 0;
 	line->y1 > line->y2 ? y = 1 : 0;
 	i = (WIN_HEIGHT - go) * WIN_WIDTH + line->x1;
-	image[i] = color;
+	if (i >= 0 && i < WIN_WIDTH * WIN_HEIGHT)
+		image[i] = color;
 	while (line->y1 != line->y2)
 	{
 		i -= WIN_WIDTH;
-		image[i] = color;
+		if (i >= 0 && i < WIN_WIDTH * WIN_HEIGHT)
+			image[i] = color;
 		line->y2 += y;
 	}
+		printf("COUCUO\n");
 }
 
 void	ft_while(t_line *ln, t_wtf *wtf, int *image, int color)
@@ -57,7 +60,8 @@ void	ft_while(t_line *ln, t_wtf *wtf, int *image, int color)
 	{
 		wtf->wtf = (ln->dy * (x - ln->x1) / ln->dx);
 		i = (WIN_HEIGHT - ln->y1) * WIN_WIDTH + x - wtf->wtf * WIN_WIDTH;
-		image[i] = color;
+		if (i >= 0 && i < WIN_WIDTH * WIN_HEIGHT)
+			image[i] = color;
 		x++;
 	}
 }
@@ -75,10 +79,10 @@ void	ft_line(int *image, int color, t_point pt1, t_point pt2)
 
 	wtf.wtf3 = 1;
 	wtf.go = 0;
-	line.x2 = pt2.x * (WIN_WIDTH / 10);
-	line.x1 = pt1.x * (WIN_WIDTH / 10);
-	line.y2 = pt2.y * (WIN_HEIGHT / 10);
-	line.y1 = pt1.y * (WIN_HEIGHT / 10);
+	line.x2 = pt2.x;
+	line.x1 = pt1.x;
+	line.y2 = pt2.y;
+	line.y1 = pt1.y;
 	line.x1 > line.x2 ? ft_double_swap(&line) : 1;
 	line.dx = line.x2 - line.x1;
 	line.dy = line.y2 - line.y1;

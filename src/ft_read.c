@@ -24,7 +24,7 @@ void	ft_fill_map(int *map, char **tab)
 	}
 }
 
-int		**ft_read(const char *file, int fd)
+int		**ft_read(const char *file, int fd, t_e *e)
 {
 	t_point		size_map;
 	char		*line;
@@ -34,7 +34,7 @@ int		**ft_read(const char *file, int fd)
 
 	if (!(fd = open(file, O_RDONLY)))
 		return (NULL);
-	size_map = ft_len_file(fd);
+	size_map = ft_len_file(file);
 	printf("y: %d x: %d\n",size_map.y, size_map.x);
 	close(fd);
 	if (!(fd = open(file, O_RDONLY)))
@@ -52,6 +52,8 @@ int		**ft_read(const char *file, int fd)
 		ft_splitlen(tab);
 		free(line);
 	}
+	free(line);
 	close(fd);
+	e->size = size_map;
 	return (map);
 }

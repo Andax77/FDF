@@ -22,6 +22,13 @@
 #include <math.h>
 #include <fcntl.h>
 
+typedef struct s_point
+{
+	int 					x;
+	int 					y;
+	int 					z;
+}				       t_point;
+
 typedef struct s_e
 {
 	void	*win;
@@ -31,14 +38,9 @@ typedef struct s_e
 	int   bpp;
 	int   size_l;
 	int   end;
+	t_point size;
+	int 		**map;
 }	  		t_e;
-
-typedef struct s_point
-{
-	int 					x;
-	int 					y;
-	int 					z;
-}				t_point;
 
 typedef struct s_wtf
 {
@@ -70,9 +72,9 @@ int 		ft_keyboard(int keycode, t_e *e);
 void	ft_line(int *image, int color, t_point pt1, t_point pt2);
 unsigned int 		ft_color(int keycode, int R, int G, int B);
 void 		ft_while(t_line *line, t_wtf *wtf, int *image, int color);
-int			**ft_read(const char *file, int fd);
-t_point ft_len_file(int fd);
+int			**ft_read(const char *file, int fd, t_e *e);
+t_point ft_len_file(const char *str);
 int			ft_splitlen(char **tab);
-void    ft_trace(int **old, int *img, t_point size);
+void    ft_trace(int **old, t_e *img, t_point size);
 
 #endif
