@@ -48,39 +48,29 @@ t_point ft_len_file(const char *str)
 	char 	**tab;
 	int 	fd;
 
-	printf("yolo\n");
 	fd = open(str, O_RDONLY);
 	size_map.x = 0;
 	size_map.y = 1;
 	if (get_next_line(fd, &line) != 1)
 		exit(0);
-		printf("yolo\n");
 	if (ft_compare(line) == 0)
 		exit(0);
-		printf("yolo\n");
 	if (!(tab = ft_strsplit(line, 32)))
 		exit(0);
-		printf("yolo\n");
 	size_map.x = ft_splitlen(tab);
-	printf("yolo\n");
   while (get_next_line(fd, &line) == 1)
 	{
-		printf("hhhh\n");
 		size_map.y++;
 		if (ft_compare(line) == 0)
 			exit(0);
-			printf("hhh\n");
 		if (!(tab = ft_strsplit(line, 32)))
 			exit(0);
-			printf("hhh\n");
 		if (size_map.x != ft_splitlen(tab))
 			exit(0);
-			printf("hhh\n");
 		free(line);
 	}
 	free(line);
 	close(fd);
-	printf("yolo\n");
 	return (size_map);
 }
 
@@ -90,6 +80,9 @@ int main(int argc, const char *argv[])
 	char *line;
 	int 	fd;
 
+	e.offset.x = 400;
+	e.offset.y = 200;
+	e.color = 0xFFFFFF;
 	if (argc != 2)
 		return (0);
 	fd = open(argv[1], O_RDONLY);
