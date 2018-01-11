@@ -19,7 +19,7 @@ SRC_NAME = main.c\
 			 ft_trace.c
 OBJ_PATH = obj
 LDFLAGS = -L libft/
-CFLAGS = -lft -g -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
+CFLAGS = -lft -L/usr/local/lib -lmlx -framework OpenGL -framework AppKit
 FLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
@@ -29,12 +29,12 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) libft/*.c libft/libft.h
 	make -C libft/
 	gcc $(FLAGS) $(LDFLAGS) $(CFLAGS) $(SRC) -o $(NAME)
 	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create FdF"
 
-obj/%.o: src/%.c
+obj/%.o: src/%.c includes/fdf.h
 	mkdir -p obj
 	gcc -Wall -Wextra -Werror -c $< -o $@
 	printf '\033[0m[ ✔ ] %s\n\033[0m' "$<"
