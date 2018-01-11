@@ -73,16 +73,20 @@ t_point ft_len_file(const char *str)
 	close(fd);
 	return (size_map);
 }
-
+void init_var(t_e *e)
+{
+	e->offset.x = 400;
+	e->offset.y = 200;
+	e->clr = 0xFFFFFF;
+	e->zoom = WIN_WIDTH / (4 * e->size.x);
+	e->z = -e->zoom / 2;
+}
 int main(int argc, const char *argv[])
 {
 	t_e e;
 	char *line;
 	int 	fd;
 
-	e.offset.x = 400;
-	e.offset.y = 200;
-	e.color = 0xFFFFFF;
 	if (argc != 2)
 		return (0);
 	fd = open(argv[1], O_RDONLY);
@@ -95,6 +99,7 @@ int main(int argc, const char *argv[])
 	!(e.img_str = (int*)mlx_get_data_addr(e.img, &e.bpp, &e.size_l, &e.end)))
 		return (0);
 	e.map = ft_read(argv[1], 0, &e);
+	init_var(&e);
 	ft_trace(e.map, &e, e.size);
 	mlx_key_hook(e.win, ft_keyboard, &e);
 	mlx_loop(e.mlx);
