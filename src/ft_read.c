@@ -24,6 +24,18 @@ void	ft_fill_map(int *map, char **tab)
 	}
 }
 
+void	ft_bigger(int *fd, const char *file, t_point *size_map, int ***map)
+{
+	if (!(*fd = open(file, O_RDONLY)))
+		ft_error("Opening File Failed.\n");
+	*size_map = ft_len_file(file);
+	close(*fd);
+	if (!(*fd = open(file, O_RDONLY)))
+		ft_error("Opening File Failed.\n");
+	if (!(*map = (int**)malloc(sizeof(*map) * size_map->y)))
+		ft_error("Allocation Failed.\n");
+}
+
 int		**ft_read(const char *file, int fd, t_e *e)
 {
 	t_point		size_map;
@@ -32,16 +44,9 @@ int		**ft_read(const char *file, int fd, t_e *e)
 	int			**map;
 	int			i;
 
-	if (!(fd = open(file, O_RDONLY)))
-		return (NULL);
-	size_map = ft_len_file(file);
-	printf("y: %d x: %d\n",size_map.y, size_map.x);
-	close(fd);
-	if (!(fd = open(file, O_RDONLY)))
-		return (NULL);
+	map = NULL;
+	ft_bigger(&fd, file, &size_map, &map);
 	i = 0;
-	if (!(map = (int**)malloc(sizeof(map) * size_map.y)))
-		return (NULL);
 	while (get_next_line(fd, &line) == 1)
 	{
 		if (!(map[i] = (int*)malloc(sizeof(int*) * size_map.x)))
