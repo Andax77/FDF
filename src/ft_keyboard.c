@@ -112,6 +112,9 @@ int				ft_keyboard(int keycode, t_e *e)
 {
 	if (keycode == 53)
 	{
+		while (e->size.y-- > 0)
+			free(e->map[e->size.y]);
+		free(e->map);
 		mlx_destroy_window(e->mlx, e->win);
 		ft_error("FDF has been destroyed.\n");
 	}

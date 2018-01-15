@@ -49,7 +49,7 @@ int		**ft_read(const char *file, int fd, t_e *e)
 	i = 0;
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (!(map[i] = (int*)malloc(sizeof(int*) * size_map.x)))
+		if (!(map[i] = (int*)malloc(sizeof(int) * size_map.x)))
 			return (NULL);
 		if (!(tab = ft_strsplit(line, 32)))
 			return (NULL);

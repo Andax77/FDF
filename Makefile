@@ -29,12 +29,12 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) libft/*.c libft/libft.h
+$(NAME): $(OBJ)
 	make -C libft/
 	gcc $(FLAGS) $(LDFLAGS) $(CFLAGS) $(SRC) -o $(NAME)
 	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create FdF"
 
-obj/%.o: src/%.c includes/fdf.h
+obj/%.o: src/%.c 
 	mkdir -p obj
 	gcc -Wall -Wextra -Werror -c $< -o $@
 	printf '\033[0m[ ✔ ] %s\n\033[0m' "$<"

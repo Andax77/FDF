@@ -77,17 +77,9 @@ void	init_var(t_e *e)
 int		main(int argc, const char *argv[])
 {
 	t_e		e;
-	char	*line;
-	int		fd;
 
 	if (argc != 2)
 		ft_error("There is more or less of 1 file -> main.c\n");
-	if (!(fd = open(argv[1], O_RDONLY)))
-		ft_error("Opening File Failed.\n");
-	if (get_next_line(fd, &line) != 1)
-		ft_error("Error GNL -> main.c.\n");
-	free(line);
-	close(fd);
 	if (!(e.mlx = mlx_init()) ||
 	!(e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "mlx 42")) ||
 	!(e.img = mlx_new_image(e.mlx, WIN_WIDTH, WIN_HEIGHT)) ||
