@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/ ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: anhuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 15:15:30 by anhuang           #+#    #+#             */
-/*   Updated: 2018/01/11 13:34:46 by anhuang          ###   ########.fr       */
+/*   Updated: 2018/01/15 18:02:10 by anhuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **alst, t_list *nv);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-int				count_let(char *str, int i, char c);
-int				ft_count_words(char *s, char c);
 void			ft_swap(int *a, int *b);
 
 #endif
