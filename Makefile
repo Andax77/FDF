@@ -27,14 +27,15 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-all: $(NAME)
+all:
+	make -C libft
+	make $(NAME)
 
-$(NAME): $(OBJ)
-	make -C libft/
+$(NAME): $(OBJ) libft/libft.a
 	gcc $(FLAGS) $(LDFLAGS) $(CFLAGS) $(SRC) -o $(NAME)
 	printf '\033[32m[ ✔ ] %s\n\033[0m' "Create FdF"
 
-obj/%.o: src/%.c 
+obj/%.o: src/%.c libft/libft.a
 	mkdir -p obj
 	gcc -Wall -Wextra -Werror -c $< -o $@
 	printf '\033[0m[ ✔ ] %s\n\033[0m' "$<"
